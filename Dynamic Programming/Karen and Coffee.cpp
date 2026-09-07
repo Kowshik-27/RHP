@@ -18,7 +18,7 @@ int main() {
         count[i]=count[i-1]+diff[i];
     }
     vector<int> prefix(max+1,0);
-    for(int i=1;i<max;i++){
+    for(int i=1;i<=max;i++){
         prefix[i]=prefix[i-1]+(count[i]>=k);
     }
     while(q--){
