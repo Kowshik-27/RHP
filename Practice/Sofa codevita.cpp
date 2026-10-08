@@ -64,5 +64,5 @@ int main(){
         step++;
     }
     if(fnd)cout<<step<<endl;
-    else cout<<"Impossible"<<step<<endl;
+    else cout<<"Impossible"<<endl;
 }
