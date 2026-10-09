@@ -10,11 +10,11 @@ int main(){
     vector<vector<char>> grid(n,vector<char>(m,'0')),g(n,vector<char>(m));
     int st[2][2];
     int t=0,step=0;
-    bool fnd=false;
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
             cin>>g[i][j];
             if(g[i][j]=='s'){
+                grid[i][j]=-1;
                 st[t][0]=i;
                 st[t][1]=j;
                 t++;
@@ -32,16 +32,21 @@ int main(){
             auto[fr,fc,sr,sc]=q.front();
             q.pop();
             if(g[fr][fc]=='S' && g[sr][sc]=='S'){
-                fnd=true;
-                break;
+                cout<<step<<endl;
+                return 0;
             }
             grid[fr][fc]=step;
             grid[sr][sc]=step;
-            int diff[4][2]={{-1,0},{1,0},{0,1},{0,-1}};
+            int diff[4][2]={{-1,0},{0,1},{1,0},{0,-1}};
             for(int i=0;i<4;i++){
                 int far=diff[i][0]+fr,fac=diff[i][1]+fc;
                 int sar=diff[i][0]+sr,sac=diff[i][1]+sc;
-                if(far<n && far>=0 && sar<n && sar>=0 && fac<m && fac>=0 && sac<m && sac>=0
+                bool b2=false;
+                if(i&1){
+                    if(fr==sr)b2=true;
+                }
+                else if(fc==sc)b2=true;
+                if(b2 && far<n && far>=0 && sar<n && sar>=0 && fac<m && fac>=0 && sac<m && sac>=0
                     && (grid[far][fac]=='0' || grid[sar][sac]=='0') && grid[far][fac]!='H' && grid[sar][sac]!='H'){
                         q.push({far,fac,sar,sac});
                 }
@@ -60,9 +65,7 @@ int main(){
                 }
             }
         }
-        if(fnd)break;
         step++;
     }
-    if(fnd)cout<<step<<endl;
-    else cout<<"Impossible"<<endl;
+    cout<<"Impossible"<<endl;
 }
